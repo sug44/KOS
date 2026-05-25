@@ -22,10 +22,9 @@ jobs:
           make clean
           make html
 
-      - uses: actions/upload-pages-artifact@v3
+      - uses: actions/upload-pages-artifact@v5
         with:
           path: doc/gh-pages
-          if-no-files-found: error
 
 
   deploy:
