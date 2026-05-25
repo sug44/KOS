@@ -2,10 +2,15 @@ name: docs
 
 on:
   workflow_dispatch:
+  workflow_run:
+    workflows: [create-release]
+    types: [completed]
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    # if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
       - uses: actions/checkout@v6
 
@@ -40,4 +45,3 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v5.0.0
-
